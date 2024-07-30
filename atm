@@ -1,0 +1,112 @@
+public class user 
+{
+     String n,ano;
+     double b;
+    user() 
+    {
+        n = "Jaya Dusiya";
+        ano = "1234567890";
+        b = 500.0;
+    }
+    public double displayBalance() 
+    {
+        System.out.println("Your current balance is: Rs" + b);
+    }
+    public void changeBalance(double bal) 
+    {
+        b =b+ bal;
+    }
+    public void print()
+    {
+        System.out.println("User: " + n);
+        System.out.println("Account Number: " + ano);
+        System.out.println("Balance: Rs" + b);
+    }
+}
+import java.util.*;
+public class ATM extends user
+{
+    user ob;
+    ATM(user ob1)
+    {
+       this. ob = ob1;
+    }
+    public void Menu()
+    {
+        Scanner in= new Scanner(System.in);
+        int c;
+        do {
+            System.out.println("ATM Menu:");
+            System.out.println("1. View Balance");
+            System.out.println("2. Deposit Money");
+            System.out.println("3. Withdraw Money");
+            System.out.println("4. Print Passbook");
+            System.out.println("5. Exit");
+            System.out.print("Choose an option: ");
+            c = in.nextInt();
+            switch (c)
+            {
+                case 1:
+                    view();
+                    break;
+                case 2:
+                    System.out.println("Enter amount to deposit: Rs");
+                    double a =in.nextDouble();
+                    deposit(a);
+                    break;
+                case 3:
+                    System.out.print("Enter amount to withdraw: Rs");
+                    double a= in.nextDouble();
+                    withdraw(a);
+                    break;
+                case 4:
+                    printPassbook();
+                    break;
+                case 5:
+                    System.out.println("Thank you for using the ATM.");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        } while (c!=5);
+    }
+    public void view() 
+    {
+         ob.displayBalance();
+    }
+    public void deposit(double a) 
+    {
+        if (a>0) 
+        {
+            ob.changeBalance(a);
+            System.out.println("Deposit successful."); 
+            ob.displayBalance();
+        }
+        else
+        {
+            System.out.println("Invalid amount. Please try again.");
+        }
+    }
+    public void withdraw(double a) 
+    {
+        if (a > 0 && a <= ob.b) {
+            ob.changeBalance(-1*a);
+            System.out.println("Withdrawal successful."); 
+            ob.dispplayBalance();
+        } 
+        else
+        {
+            System.out.println("Invalid amount or insufficient balance. Please try again.");
+        }
+    }
+    public void printPassbook() 
+    {
+        ob.print();
+    }
+    public static void main(String[] args)
+    {
+        user ob = new user();
+        ATM atm = new ATM(ob);
+        atm.Menu();
+    }
+}
